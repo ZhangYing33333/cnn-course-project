@@ -53,7 +53,7 @@ $py = ".\.venv\Scripts\python.exe"
 
 ### CIFAR-10 训练集
 
-将 `cifar-10-python.tar.gz` 放到项目的 `data/` 目录。首次构建训练集时，torchvision 会校验并解压该文件。数据应位于 `data/cifar-10-batches-py/`。官方压缩包 MD5 为 `c58f30108f718f92721af3b95e74349a`；可用下列命令核验：
+下载地址https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz，将 `cifar-10-python.tar.gz` 放到项目的 `data/` 目录。首次构建训练集时，torchvision 会校验并解压该文件。数据应位于 `data/cifar-10-batches-py/`。官方压缩包 MD5 为 `c58f30108f718f92721af3b95e74349a`；可用下列命令核验：
 
 ```powershell
 (Get-FileHash .\data\cifar-10-python.tar.gz -Algorithm MD5).Hash
