@@ -36,8 +36,6 @@ cnn-course-project/
 └── outputs/
 ```
 
-`data/` 和模型权重不应提交到 Git。脚本会把训练曲线、汇总文件、checkpoint 和场景对比 CSV 保存到 `outputs/`。
-
 ## 4. 环境
 
 项目已在 Windows、Python 3.14.6、PyTorch 2.15.0+cpu、torchvision 0.29.2+cpu 环境完成模型前向检查。CPU 环境安装命令如下：
@@ -117,7 +115,7 @@ data/cifar10_1/cifar10.1_v6_labels.npy
 & $py .\evaluate_cifar10_test.py --device cpu --batch-size 64
 ```
 
-输出为 `outputs\cifar10_final_test_summary.csv`。请把这次结果视为 CIFAR-10 上的最终测试结果；如需再次调整模型，应另行保留新的测试集，不能继续把该测试结果用于选模。
+输出为 `outputs\cifar10_final_test_summary.csv`。为 CIFAR-10 上的最终测试结果；如需再次调整模型，应另行保留新的测试集，不能继续把该测试结果用于选模。
 ## 10. 场景应用推理对比
 
 四个模型训练完成并确认 checkpoint 来自新验证划分流程后，运行：
@@ -126,21 +124,12 @@ data/cifar10_1/cifar10.1_v6_labels.npy
 & $py .\compare_cifar10_1.py --device cpu --batch-size 64
 ```
 
-脚本从 `outputs/` 加载四个 `*_best.pt`，对相同的 CIFAR-10.1 v6 图像计算准确率、平均单张前向时间、吞吐量、参数量和 MACs，不进行训练或权重更新。输出文件为：
+脚本从 `outputs/` 加载四个 `*_best.pt`，对CIFAR-10.1 v6 图像计算准确率、平均单张前向时间、吞吐量、参数量和 MACs，不进行训练或权重更新。输出文件为：
 
 - `outputs/cifar10_1_scene_summary.csv`：每个模型一行汇总。
 - `outputs/cifar10_1_scene_predictions.csv`：每张图像的真实类别、预测类别和正确与否。
 
-推理时间只计模型前向，不含文件读取和预处理；实际速度依赖硬件、批大小和系统负载。CIFAR-10.1 v6 是同类别的新测试图像，可作为本项目的场景应用原型评估；不能据此声称已在真实工业或监控环境完成部署。
+推理时间只计模型前向，不含文件读取和预处理；实际速度依赖硬件、批大小和系统负载。
 
-## 11. Git 提交
-
-```powershell
-git init
-git add README.md requirements.txt .gitignore train.py evaluate_cifar10_test.py compare_cifar10_1.py src
-git commit -m "Add CNN validation split and CIFAR-10.1 comparison"
-```
-
-不要提交 `.venv/`、数据集、checkpoint 等大文件。报告应使用新一轮训练生成的 CSV/JSON 数字，不要混用此前未划分验证集的旧训练结果。
 
 
